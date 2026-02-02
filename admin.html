@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CryptoInvest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">Admin Panel</a>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" onclick="showSection('users')">
+                    <i data-lucide="users"></i> <span>Users</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showSection('deposits')">
+                    <i data-lucide="wallet"></i> <span>Deposits</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showSection('withdrawals')">
+                    <i data-lucide="arrow-up-right"></i> <span>Withdrawals</span>
+                </a>
+                <a href="#" class="menu-item" onclick="showSection('kyc')">
+                    <i data-lucide="shield-check"></i> <span>KYC Verifications</span>
+                </a>
+            </nav>
+            <div class="user-profile">
+                <div class="user-avatar" style="background-color: var(--warning);">A</div>
+                <div style="flex: 1;">
+                    <div style="font-size: 0.875rem; font-weight: 500;">Administrator</div>
+                    <div style="font-size: 0.75rem; color: var(--text-gray);">System Access</div>
+                </div>
+                <button id="logout-btn" style="padding: 0.5rem; background: transparent; color: var(--text-gray);">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="page-title">User Management</h2>
+            </header>
+
+            <!-- Users Section -->
+            <div class="content-wrapper" id="users-section">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Registered Users</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Deposits Section -->
+            <div class="content-wrapper" id="deposits-section" style="display: none;">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Pending Deposits</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deposits-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Withdrawals Section -->
+            <div class="content-wrapper" id="withdrawals-section" style="display: none;">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Pending Withdrawals</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Crypto</th>
+                                <th>Wallet Address</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawals-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- KYC Section -->
+            <div class="content-wrapper" id="kyc-section" style="display: none;">
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Pending KYC Verifications</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>ID Type</th>
+                                <th>Date Submitted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kyc-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Edit Balance Modal -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeEditModal()">&times;</button>
+            <h3>Edit User Balance</h3>
+            <form id="edit-balance-form">
+                <input type="hidden" id="edit-user-id">
+                <div class="form-group">
+                    <label>New Balance (USD)</label>
+                    <input type="number" id="edit-balance" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Update Balance</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div class="modal" id="user-detail-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeUserModal()">&times;</button>
+            <h3>User Details</h3>
+            <div id="user-detail-content" style="margin-top: 1rem; line-height: 1.8; color: var(--text-gray);">
+                <!-- Populated by JS -->
+            </div>
+            <button class="btn-primary" style="width: 100%; margin-top: 1.5rem;"
+                onclick="closeUserModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Withdrawal Details Modal -->
+    <div class="modal" id="withdrawal-detail-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeWithdrawalModal()">&times;</button>
+            <h3>Withdrawal Request Details</h3>
+            <div id="withdrawal-detail-content" style="margin-top: 1.5rem; line-height: 2; color: var(--text-gray);">
+                <!-- Populated by JS -->
+            </div>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <button id="modal-approve-btn" class="btn-primary"
+                    style="flex: 1; background-color: var(--success);">Approve</button>
+                <button id="modal-reject-btn" class="btn-primary"
+                    style="flex: 1; background-color: var(--error);">Reject & Refund</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KYC Detail Modal -->
+    <div class="modal" id="kyc-detail-modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="close-modal" onclick="closeKYCModal()">&times;</button>
+            <h3>KYC Document Review</h3>
+            <div id="kyc-detail-content" style="margin-top: 1.5rem;">
+                <!-- Populated by JS -->
+            </div>
+            <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <button id="kyc-approve-btn" class="btn-primary"
+                    style="flex: 1; background-color: var(--success);">Approve Identity</button>
+                <button id="kyc-reject-btn" class="btn-primary" style="flex: 1; background-color: var(--error);">Reject
+                    Identity</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Proof Modal -->
+    <div class="modal" id="proof-modal">
+        <div class="modal-content" style="text-align: center;">
+            <button class="close-modal" onclick="closeProofModal()">&times;</button>
+            <h3 style="margin-bottom: 1rem;">Payment Proof</h3>
+            <img id="proof-image" src="" alt="Proof"
+                style="max-width: 100%; max-height: 70vh; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn-primary" onclick="closeProofModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin.js"></script>
+    <script>
+        lucide.createIcons();
+
+        function showSection(sectionId) {
+            // Hide all sections
+            ['users', 'deposits', 'withdrawals', 'kyc'].forEach(id => {
+                const el = document.getElementById(id + '-section');
+                if (el) el.style.display = 'none';
+            });
+            // Show target section
+            const target = document.getElementById(sectionId + '-section');
+            if (target) target.style.display = 'block';
+
+            // Update title
+            const titles = {
+                'users': 'User Management',
+                'deposits': 'Deposit Requests',
+                'withdrawals': 'Withdrawal Requests',
+                'kyc': 'Identity Verifications'
+            };
+            document.getElementById('page-title').textContent = titles[sectionId];
+
+            // Update active menu
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

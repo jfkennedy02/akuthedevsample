@@ -1,0 +1,68 @@
+:root {
+  /* Colors */
+  --color-primary: #00E396; /* Neon Green */
+  --color-primary-hover: #00b377;
+  --color-bg-dark: #111111;
+  --color-bg-card: rgba(255, 255, 255, 0.05);
+  --color-text-main: #ffffff;
+  --color-text-muted: #888888;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-success: #00E396;
+  --color-danger: #ff4560;
+  --color-warning: #feb019;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Effects */
+  --blur-md: 10px;
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-main);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sim-warning-banner {
+  background: var(--color-warning);
+  color: #000;
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.app-container {
+  padding-top: 30px; /* Space for banner */
+  min-height: 100vh;
+}

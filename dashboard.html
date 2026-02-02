@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CryptoInvest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">CryptoInvest</a>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active" data-page="overview">
+                    <i data-lucide="layout-dashboard"></i> <span>Overview</span>
+                </a>
+                <a href="#" class="menu-item" data-page="deposit">
+                    <i data-lucide="wallet"></i> <span>Deposit</span>
+                </a>
+                <a href="#" class="menu-item" data-page="withdraw">
+                    <i data-lucide="arrow-up-right"></i> <span>Withdraw</span>
+                </a>
+                <a href="#" class="menu-item" data-page="transfer">
+                    <i data-lucide="send"></i> <span>Transfer</span>
+                </a>
+                <a href="#" class="menu-item" data-page="history">
+                    <i data-lucide="history"></i> <span>History</span>
+                </a>
+                <a href="#" class="menu-item" data-page="profile">
+                    <i data-lucide="user"></i> <span>Profile</span>
+                </a>
+            </nav>
+            <div class="user-profile">
+                <img id="sidebar-avatar" src="" alt="Profile"
+                    style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #333; display: none;">
+                <div class="user-avatar" id="user-initial">U</div>
+                <div style="flex: 1; overflow: hidden;">
+                    <div id="user-display-name"
+                        style="font-size: 0.875rem; font-weight: 500; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
+                        User</div>
+                    <div style="font-size: 0.75rem; color: var(--text-gray);">Status: <span id="kyc-status"
+                            style="color: var(--warning);">Unverified</span></div>
+                </div>
+                <button id="logout-btn" style="padding: 0.5rem; background: transparent; color: var(--text-gray);">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div>
+                    <h2 id="page-title">Overview</h2>
+                    <p id="greeting-msg" style="color: var(--text-gray); font-size: 0.9rem; margin-top: 0.25rem;">
+                        Welcome back</p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-primary" onclick="showDepositModal()">+ Deposit</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper" id="overview-section">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card primary-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Balance</span>
+                            <i data-lucide="wallet"></i>
+                        </div>
+                        <div class="stat-value" id="total-balance">$0.00</div>
+                        <div class="stat-change" style="background: rgba(0,0,0,0.1); color: black;">
+                            <i data-lucide="trending-up" style="width: 14px;"></i> +12% this month
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Profit</span>
+                            <i data-lucide="trending-up" style="color: var(--success);"></i>
+                        </div>
+                        <div class="stat-value" id="total-profit">$0.00</div>
+                        <div class="stat-change">All time earnings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Active Investments</span>
+                            <i data-lucide="activity" style="color: var(--warning);"></i>
+                        </div>
+                        <div class="stat-value" id="active-investments">0</div>
+                        <div class="stat-change">Running plans</div>
+                    </div>
+                </div>
+
+                <!-- Active Investments (Dynamic) -->
+                <div id="active-plans-container" style="display: none; margin-bottom: 2.5rem;">
+                    <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="activity" style="color: var(--success);"></i> My Active Plans
+                    </h3>
+                    <div class="stats-grid" id="active-plans-grid">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Investment Plans -->
+                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i data-lucide="pickaxe" style="color: var(--primary-color);"></i> Available Mining Plans
+                </h3>
+
+                <div class="plans-grid">
+                    <!-- Plan 1 -->
+                    <div class="plan-card">
+                        <div class="plan-badge">Starter</div>
+                        <h3>Cloud Node V1</h3>
+                        <div class="plan-roi">104% ROI</div>
+                        <div class="plan-duration">7 Days Maturity</div>
+                        <div class="plan-range">
+                            <span>$1,000</span> - <span>$5,000</span>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> Daily Accrual</li>
+                            <li><i data-lucide="check"></i> 24/7 Support</li>
+                            <li><i data-lucide="check"></i> Instant Withdrawal</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%; margin-top: auto;"
+                            onclick="openInvestModal('Cloud Node V1', 1000, 5000, 104, 7)">Invest Now</button>
+                    </div>
+
+                    <!-- Plan 2 -->
+                    <div class="plan-card popular">
+                        <div class="plan-badge" style="background: var(--warning); color: black;">Popular</div>
+                        <h3>Pro Mining Rig</h3>
+                        <div class="plan-roi">110% ROI</div>
+                        <div class="plan-duration">14 Days Maturity</div>
+                        <div class="plan-range">
+                            <span>$5,001</span> - <span>$15,000</span>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> Enhanced Hashrate</li>
+                            <li><i data-lucide="check"></i> Auto-Compound</li>
+                            <li><i data-lucide="check"></i> Priority Support</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%; margin-top: auto;"
+                            onclick="openInvestModal('Pro Mining Rig', 5001, 15000, 110, 14)">Invest Now</button>
+                    </div>
+
+                    <!-- Plan 3 -->
+                    <div class="plan-card">
+                        <div class="plan-badge">Advanced</div>
+                        <h3>Data Center A1</h3>
+                        <div class="plan-roi">125% ROI</div>
+                        <div class="plan-duration">30 Days Maturity</div>
+                        <div class="plan-range">
+                            <span>$15,001</span> - <span>$50,000</span>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> Max Efficiency</li>
+                            <li><i data-lucide="check"></i> Account Manager</li>
+                            <li><i data-lucide="check"></i> Zero Fees</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%; margin-top: auto;"
+                            onclick="openInvestModal('Data Center A1', 15001, 50000, 125, 30)">Invest Now</button>
+                    </div>
+
+                    <!-- Plan 4 -->
+                    <div class="plan-card">
+                        <div class="plan-badge">Elite</div>
+                        <h3>Quantum Farm</h3>
+                        <div class="plan-roi">155% ROI</div>
+                        <div class="plan-duration">60 Days Maturity</div>
+                        <div class="plan-range">
+                            <span>$50,001</span> - <span>$100,000</span>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> Institutional Grade</li>
+                            <li><i data-lucide="check"></i> Private Node</li>
+                            <li><i data-lucide="check"></i> Insured Assets</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%; margin-top: auto;"
+                            onclick="openInvestModal('Quantum Farm', 50001, 100000, 155, 60)">Invest Now</button>
+                    </div>
+
+                    <!-- Plan 5 -->
+                    <div class="plan-card premium">
+                        <div class="plan-badge">Ultimate</div>
+                        <h3>Global Network</h3>
+                        <div class="plan-roi">200% ROI</div>
+                        <div class="plan-duration">90 Days Maturity</div>
+                        <div class="plan-range">
+                            <span>$100,001</span> - <span>$350,000</span>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> Full Network Share</li>
+                            <li><i data-lucide="check"></i> Concierge Service</li>
+                            <li><i data-lucide="check"></i> Custom Maturity</li>
+                        </ul>
+                        <button class="btn-primary" style="width: 100%; margin-top: auto;"
+                            onclick="openInvestModal('Global Network', 100001, 350000, 200, 90)">Invest Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdraw Section -->
+            <div class="content-wrapper" id="withdraw-section" style="display: none;">
+                <div class="auth-card" style="max-width: 600px; margin: 0 auto;">
+                    <h3>Withdraw Funds</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1.5rem;">Withdraw your crypto to an external
+                        wallet.</p>
+                    <form id="withdraw-form">
+                        <div class="form-group">
+                            <label>Amount (USD)</label>
+                            <input type="number" id="withdraw-amount" min="10" required placeholder="Enter amount">
+                        </div>
+                        <div class="form-group">
+                            <label>Withdraw to (Crypto)</label>
+                            <select id="withdraw-method" required
+                                style="width: 100%; padding: 0.75rem; background-color: var(--bg-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.5rem; color: var(--text-light);">
+                                <option value="btc">Bitcoin (BTC)</option>
+                                <option value="eth">Ethereum (ETH)</option>
+                                <option value="usdt">Tether (USDT TRC20)</option>
+                                <option value="sol">Solana (SOL)</option>
+                                <option value="doge">Dogecoin (DOGE)</option>
+                                <option value="ltc">Litecoin (LTC)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Destination Wallet Address</label>
+                            <input type="text" id="withdraw-wallet" required
+                                placeholder="Paste your wallet address here">
+                        </div>
+                        <div class="form-group">
+                            <label>Withdrawal Policy</label>
+                            <p style="font-size: 0.875rem; color: var(--warning);">Withdrawals are typically processed
+                                within 24 hours. Please double-check your address.</p>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Request Withdrawal</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Transfer Section -->
+            <div class="content-wrapper" id="transfer-section" style="display: none;">
+                <div class="auth-card" style="max-width: 600px; margin: 0 auto;">
+                    <h3>Internal Transfer</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1.5rem;">Send funds instantly to another user.</p>
+                    <form id="transfer-form">
+                        <div class="form-group">
+                            <label>Recipient Email</label>
+                            <input type="email" id="transfer-email" required placeholder="user@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (USD)</label>
+                            <input type="number" id="transfer-amount" min="1" required placeholder="Enter amount">
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Send Funds</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- History Section (Restored) -->
+            <div class="content-wrapper" id="history-section" style="display: none;">
+                <!-- History Stats -->
+                <div class="stats-grid" style="margin-bottom: 2rem;">
+                    <div class="stat-card primary-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Balance</span>
+                            <i data-lucide="wallet"></i>
+                        </div>
+                        <div class="stat-value" id="history-total-balance">$0.00</div>
+                        <div class="stat-change" style="background: rgba(0,0,0,0.1); color: black;">
+                            <i data-lucide="trending-up" style="width: 14px;"></i> Available
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Profit</span>
+                            <i data-lucide="trending-up" style="color: var(--success);"></i>
+                        </div>
+                        <div class="stat-value" id="history-total-profit">$0.00</div>
+                        <div class="stat-change">All time earnings</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Transaction History</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-body">
+                            <!-- Transactions injected by JS -->
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: var(--text-gray);">Loading
+                                    transactions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Deposit Section (Real Content) -->
+            <div class="content-wrapper" id="deposit-section" style="display: none;">
+                <div class="auth-card" style="max-width: 600px; margin: 0 auto;">
+                    <h3>Deposit Funds</h3>
+                    <p style="color: var(--text-gray); margin-bottom: 1.5rem;">Add funds to your wallet.</p>
+                    <button class="btn-primary btn-lg" style="width: 100%;" onclick="showDepositModal()">Open Deposit
+                        Modal</button>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="content-wrapper" id="profile-section" style="display: none;">
+                <div class="auth-card" style="max-width: 600px; margin: 0 auto;">
+                    <h3>Edit Profile</h3>
+                    <form id="profile-form">
+                        <div class="form-group" style="text-align: center;">
+                            <div style="position: relative; width: 100px; height: 100px; margin: 0 auto 1rem auto;">
+                                <img id="profile-preview" src="" alt=""
+                                    style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #333; display: none;">
+                                <div id="profile-placeholder"
+                                    style="width: 100%; height: 100%; border-radius: 50%; background: var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                                    👤</div>
+                                <label for="profile-pic-input"
+                                    style="position: absolute; bottom: 0; right: 0; background: var(--primary-color); color: black; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                    <i data-lucide="camera" style="width: 16px;"></i>
+                                </label>
+                                <input type="file" id="profile-pic-input" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="username" placeholder="CryptoKing123">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="dob">
+                        </div>
+
+                        <div
+                            style="margin: 2rem 0; padding: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+                            <h4
+                                style="margin-bottom: 1rem; color: var(--primary-color); display: flex; align-items: center; gap: 0.5rem;">
+                                <i data-lucide="wallet" style="width: 18px;"></i> Withdrawal Preferences
+                            </h4>
+                            <div class="form-group">
+                                <label>Default Crypto</label>
+                                <select id="default-crypto"
+                                    style="width: 100%; padding: 0.75rem; background-color: var(--bg-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.5rem; color: var(--text-light);">
+                                    <option value="btc">Bitcoin (BTC)</option>
+                                    <option value="eth">Ethereum (ETH)</option>
+                                    <option value="usdt">Tether (USDT TRC20)</option>
+                                    <option value="sol">Solana (SOL)</option>
+                                    <option value="doge">Dogecoin (DOGE)</option>
+                                    <option value="ltc">Litecoin (LTC)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Default Wallet Address</label>
+                                <input type="text" id="default-wallet" placeholder="Paste your default address">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%;">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Deposit Modal -->
+    <div class="modal" id="deposit-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeDepositModal()">&times;</button>
+            <h3 style="margin-bottom: 1.5rem;">Quick Deposit</h3>
+            <form id="deposit-form">
+                <div class="form-group">
+                    <label>Amount (USD)</label>
+                    <input type="number" id="deposit-amount" min="10" required placeholder="Enter amount">
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="deposit-method"
+                        style="width: 100%; padding: 0.75rem; background-color: var(--bg-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.5rem; color: var(--text-light);">
+                        <option value="btc">Bitcoin (BTC)</option>
+                        <option value="eth">Ethereum (ETH)</option>
+                        <option value="usdt">Tether (USDT TRC20)</option>
+                        <option value="sol">Solana (SOL)</option>
+                        <option value="doge">Dogecoin (DOGE)</option>
+                        <option value="ltc">Litecoin (LTC)</option>
+                    </select>
+                </div>
+
+                <!-- AML / KYC Notice -->
+                <div id="kyc-notice"
+                    style="display: none; margin-bottom: 1.5rem; background: rgba(190, 242, 100, 0.1); padding: 1rem; border-radius: 8px; border: 1px solid var(--primary-color);">
+                    <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                        <i data-lucide="shield-alert"
+                            style="color: var(--primary-color); flex-shrink: 0; width: 20px;"></i>
+                        <p style="font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">
+                            <strong>Compliance Check Required</strong><br>
+                            To prevent money laundering, deposits of $5,000 and above require a one-time identity
+                            verification.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- KYC Form Fields (Hidden Initially) -->
+                <div id="kyc-fields"
+                    style="display: none; border: 1px solid rgba(255,255,255,0.1); padding: 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; background: rgba(0,0,0,0.2);">
+                    <h4 style="margin-bottom: 1rem; font-size: 0.9rem;">Identity Verification</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label>Full Name (as on ID)</label>
+                            <input type="text" id="kyc-fullname" placeholder="John Doe" style="font-size: 0.9rem;">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" id="kyc-country" placeholder="United States" style="font-size: 0.9rem;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ID Document Type</label>
+                        <select id="kyc-id-type"
+                            style="width: 100%; padding: 0.75rem; background-color: var(--bg-dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.5rem; color: var(--text-light);">
+                            <option value="government_id">Government Issued ID</option>
+                            <option value="drivers_license">Driver's License</option>
+                            <option value="passport">International Passport</option>
+                        </select>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>ID Front Image</label>
+                            <input type="file" id="kyc-front" accept="image/*" style="font-size: 0.8rem;">
+                        </div>
+                        <div class="form-group">
+                            <label>ID Back Image</label>
+                            <input type="file" id="kyc-back" accept="image/*" style="font-size: 0.8rem;">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 0.5rem;">
+                        <label>Liveness Video (Face Check)</label>
+                        <p style="font-size: 0.75rem; color: var(--text-gray); margin-bottom: 0.5rem;">Please record a
+                            5-second video of your face turning left and right.</p>
+
+                        <div id="recorder-container"
+                            style="background: #000; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 4/3; margin-bottom: 1rem;">
+                            <video id="kyc-preview" autoplay muted playsinline
+                                style="width: 100%; height: 100%; object-fit: cover;"></video>
+                            <div id="recording-indicator"
+                                style="position: absolute; top: 10px; right: 10px; width: 12px; height: 12px; background: red; border-radius: 50%; display: none; animation: pulse 1s infinite;">
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="button" id="start-camera-btn" class="btn-outline"
+                                style="flex: 1; font-size: 0.8rem;">Start Camera</button>
+                            <button type="button" id="start-record-btn" class="btn-primary"
+                                style="flex: 1; font-size: 0.8rem; display: none;">Start Recording</button>
+                            <button type="button" id="stop-record-btn" class="btn-primary"
+                                style="flex: 1; font-size: 0.8rem; display: none; background: #ef4444;">Stop</button>
+                        </div>
+
+                        <div id="record-success-msg"
+                            style="display: none; color: var(--success); font-size: 0.8rem; margin-top: 0.5rem;">
+                            <i data-lucide="check-circle" style="width: 14px; vertical-align: middle;"></i> Video
+                            recorded successfully
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Info Display -->
+                <div id="deposit-info"
+                    style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; display: none;">
+                    <div style="font-size: 0.875rem; color: var(--text-gray); margin-bottom: 0.5rem;">Send <span
+                            id="info-coin">BTC</span> to address:</div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                        <div id="info-address"
+                            style="flex: 1; font-family: monospace; word-break: break-all; color: var(--text-light); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.2); font-size: 0.9rem;">
+                            Loading...</div>
+                        <button type="button" id="copy-btn" class="btn-outline"
+                            style="padding: 0 1rem; border-radius: 8px;" title="Copy Address">
+                            <i data-lucide="copy" style="width: 18px; margin: 0;"></i>
+                        </button>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <img id="info-qr" src="" alt="QR Code"
+                            style="width: 120px; height: 120px; border-radius: 8px; background: white; padding: 4px;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Payment Proof (Screenshot) <span style="color: var(--error);">*</span></label>
+                    <input type="file" id="deposit-proof" accept="image/*" required style="padding: 0.5rem;">
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal" style="z-index: 2000;">
+        <div class="modal-content" style="text-align: center; max-width: 400px; position: relative;">
+            <button class="close-modal" onclick="closeSuccessModal()">&times;</button>
+            <div
+                style="width: 60px; height: 60px; background: rgba(190, 242, 100, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto; color: var(--primary-color);">
+                <i data-lucide="loader-2" class="spin-icon" style="width: 32px; height: 32px;"></i>
+            </div>
+            <h3 style="margin-bottom: 1rem;">Processing Deposit...</h3>
+            <p style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.6;">
+                Please check back in a few minutes. Sometimes it may take longer, but that rarely happens.
+            </p>
+        </div>
+    </div>
+
+    <!-- Investment Modal (Restored) -->
+    <div class="modal" id="invest-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeInvestModal()">&times;</button>
+            <h3 id="invest-plan-name" style="margin-bottom: 0.5rem; color: #fff;">Purchase Plan</h3>
+            <p style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                ROI: <span id="invest-plan-roi" style="color: var(--success);"></span> |
+                Duration: <span id="invest-plan-days" style="color: var(--text-light);"></span> Days
+            </p>
+
+            <form id="invest-form">
+                <input type="hidden" id="invest-roi">
+                <input type="hidden" id="invest-days">
+
+                <div class="form-group">
+                    <label>Amount to Invest (USD)</label>
+                    <input type="number" id="invest-amount" required placeholder="Enter amount">
+                    <div style="font-size: 0.8rem; color: var(--text-gray); margin-top: 0.5rem;">
+                        Range: <span id="invest-min">$0</span> - <span id="invest-max">$0</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Available Balance</label>
+                    <div style="font-weight: bold; color: var(--success);" id="invest-balance-display">$0.00</div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">Confirm Purchase</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Spin Animation -->
+    <style>
+        .spin-icon {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script type="module" src="js/dashboard.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

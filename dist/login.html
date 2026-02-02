@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CryptoInvest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/login-BnC2kt_w.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/firebase-config-Zcj99KW5.js">
+  <link rel="stylesheet" crossorigin href="/assets/style-CetcpOaZ.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">Welcome Back</h2>
+
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required placeholder="name@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+
+                <div id="login-extras" style="margin-top: -0.5rem; margin-bottom: 1.5rem; text-align: right;">
+                    <a href="#" id="forgot-password"
+                        style="font-size: 0.8125rem; color: var(--primary-color); text-decoration: none;">Forgot
+                        Password?</a>
+                </div>
+
+                <!-- Extra Fields for Signup -->
+                <div id="signup-fields" style="display: none;">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="fullname" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+1 234 567 8900">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" style="width: 100%;">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State / Province</label>
+                        <select id="state" style="width: 100%;">
+                            <option value="">Select State / Province</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Home Address</label>
+                        <input type="text" id="address" placeholder="123 Crypto Lane">
+                    </div>
+                    <div class="form-group">
+                        <label>Zip Code</label>
+                        <input type="text" id="zip" placeholder="90210">
+                    </div>
+                </div>
+
+                <div id="error-message"
+                    style="color: var(--error); margin-bottom: 1rem; font-size: 0.875rem; display: none;"></div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
+            </form>
+
+            <div style="margin-top: 1.5rem; text-align: center; font-size: 0.875rem; color: var(--text-gray);">
+                <span id="auth-toggle-text">Don't have an account?</span>
+                <button id="toggle-auth"
+                    style="background: none; color: var(--primary-color); padding: 0; margin-left: 0.5rem;">Create
+                    Account</button>
+            </div>
+
+            <div style="margin-top: 1rem; text-align: center;">
+                <a href="index.html" style="color: var(--text-gray); text-decoration: none; font-size: 0.875rem;">Back
+                    to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Recovery Modal -->
+    <div id="recovery-modal" class="modal"
+        style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);">
+        <div class="auth-card" style="position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h2 style="text-align: center; margin-bottom: 1rem; color: var(--primary-color);">Reset Password</h2>
+            <p style="text-align: center; color: var(--text-gray); font-size: 0.875rem; margin-bottom: 2rem;">Enter your
+                email address and we'll send you a link to reset your password.</p>
+
+            <form id="recovery-form">
+                <div class="form-group">
+                    <label for="recovery-email">Email Address</label>
+                    <input type="email" id="recovery-email" required placeholder="name@example.com">
+                </div>
+                <div id="recovery-message" style="margin-bottom: 1rem; font-size: 0.875rem; display: none;"></div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Send Reset Link</button>
+            </form>
+
+            <button id="close-recovery"
+                style="background: none; color: var(--text-gray); width: 100%; margin-top: 1rem; font-size: 0.875rem;">Back
+                to Login</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs are imported in the module -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

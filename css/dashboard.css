@@ -1,0 +1,718 @@
+/* Dashboard Re-skin */
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-dark);
+}
+
+.sidebar {
+    width: 260px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem;
+}
+
+.sidebar-menu {
+    padding: 1rem;
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    color: var(--text-gray);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+}
+
+.menu-item.active {
+    background-color: var(--primary-color);
+    color: var(--primary-text);
+    box-shadow: 0 0 20px rgba(190, 242, 100, 0.2);
+}
+
+.menu-item i {
+    margin-right: 1rem;
+    width: 20px;
+}
+
+.user-profile {
+    padding: 1.5rem;
+    margin: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #84cc16);
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+    background: radial-gradient(circle at 80% 10%, rgba(190, 242, 100, 0.05) 0%, transparent 40%);
+}
+
+.top-bar {
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.content-wrapper {
+    padding: 0 3rem 3rem 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Stats Cards - Tonee Style */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card {
+    position: relative;
+    padding: 1.75rem;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+/* Primary Card (Total Balance) gets special styling */
+.stat-card.primary-card {
+    background: linear-gradient(135deg, #bef264 0%, #84cc16 100%);
+    color: black;
+    border: none;
+}
+
+.stat-card.primary-card .stat-title,
+.stat-card.primary-card .stat-change {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.stat-card.primary-card i {
+    color: black !important;
+    opacity: 0.5;
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+.stat-title {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.stat-change {
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    width: fit-content;
+}
+
+/* Tables */
+.table-container {
+    background: rgba(20, 20, 20, 0.6);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    /* Row spacing */
+}
+
+th {
+    padding: 1rem;
+    color: var(--text-gray);
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+}
+
+tr.transaction-row {
+    background: rgba(255, 255, 255, 0.03);
+    transition: transform 0.2s;
+}
+
+tr.transaction-row:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(1.01);
+}
+
+td {
+    padding: 1.25rem 1rem;
+    color: var(--text-light);
+    border: none;
+}
+
+td:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+td:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.status-badge {
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.status-completed {
+    background-color: rgba(190, 242, 100, 0.15);
+    color: var(--success);
+}
+
+.status-pending {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: var(--warning);
+}
+
+/* Modal System */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    /* Center horizontally/vertically by default */
+    padding: 2rem 1rem;
+    overflow-y: auto;
+    /* Allow overlay scroll if content is HUGE */
+}
+
+.modal.active {
+    display: flex;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background: #0a0a0a;
+    border: 1px solid rgba(190, 242, 100, 0.15);
+    /* Subtle lime border */
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+    border-radius: 32px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+    max-height: 90vh;
+    /* Viewport-aware height */
+    overflow-y: auto;
+    /* Internal scroll */
+    margin: auto;
+    /* Center when flexed */
+    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Scrollbar for Modal Content */
+.modal-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(30px) scale(0.98);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--text-gray);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 640px) {
+    .modal {
+        padding: 1rem 0.5rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        border-radius: 24px;
+    }
+}
+
+/* --- Investment Plans (Bento Style) --- */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.plan-card {
+    background-color: #0f0f0f;
+    /* Deep Black/Gray */
+    border-radius: 32px;
+    /* High radius as per image */
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    border-color: rgba(190, 242, 100, 0.3);
+}
+
+/* Scroll Animation Initial State */
+.plan-card {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8) rotateX(10deg);
+    /* Stacked/Hidden feel */
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Active State (Scattered/Dealt) + Floating Loop */
+.plan-card.scrolled-in {
+    opacity: 1;
+    /* transform is now handled by animation, but we set a base here to ensure it sticks if animation fails */
+    transform: translateY(0) scale(1) rotateX(0);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1) rotateX(0);
+    }
+
+    50% {
+        transform: translateY(-12px) scale(1) rotateX(0);
+    }
+
+    100% {
+        transform: translateY(0) scale(1) rotateX(0);
+    }
+}
+
+/* Stagger Delays and durations for "Random" Floating Phase */
+.plan-card.scrolled-in:nth-child(1) {
+    animation-duration: 6s;
+    animation-delay: 0s;
+}
+
+.plan-card.scrolled-in:nth-child(2) {
+    animation-duration: 5s;
+    animation-delay: 0.5s;
+}
+
+.plan-card.scrolled-in:nth-child(3) {
+    animation-duration: 7s;
+    animation-delay: 1.5s;
+}
+
+.plan-card.scrolled-in:nth-child(4) {
+    animation-duration: 5.5s;
+    animation-delay: 2.2s;
+}
+
+.plan-card.scrolled-in:nth-child(5) {
+    animation-duration: 6.5s;
+    animation-delay: 1s;
+}
+
+/* Important: The initial 'transition' property on .plan-card might conflict with the animation loop
+   once the class is applied. We can override the transition in the active state if needed, 
+   but usually it's fine. To be smoother, we might want the animation to start AFTER the deal.
+   But simple CSS override works for "continuous" feel. 
+*/
+
+/* Stagger Delays for "Scatter" effect */
+.plan-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.plan-card:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.plan-card:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.plan-card:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.plan-card:nth-child(5) {
+    transition-delay: 0.5s;
+}
+
+.plan-card.popular {
+    background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid rgba(190, 242, 100, 0.2);
+}
+
+/* Neon Green Badge for Popular */
+.plan-badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: #BEF264;
+    /* Neon Lime */
+    color: black;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 15px rgba(190, 242, 100, 0.4);
+}
+
+.plan-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.plan-roi {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #BEF264;
+    /* Match Neon */
+    line-height: 1;
+    margin: 1rem 0;
+    letter-spacing: -0.03em;
+}
+
+.plan-duration {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.plan-range {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    color: #ccc;
+    font-family: monospace;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+}
+
+.plan-features li {
+    padding: 0.5rem 0;
+    color: #aaa;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.9rem;
+}
+
+.plan-features li:last-child {
+    border-bottom: none;
+}
+
+/* Pill Button */
+.plan-card button {
+    background: #BEF264;
+    color: black;
+    border-radius: 100px;
+    padding: 1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.plan-card button:hover {
+    background: #a3ff47;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(190, 242, 100, 0.3);
+}
+
+/* Update Modal for Bento Feel */
+.modal-content {
+    border-radius: 40px !important;
+    background: #111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+input,
+select {
+    background: #1a1a1a !important;
+    border: none !important;
+    border-radius: 16px !important;
+    padding: 1rem !important;
+    color: white !important;
+}
+
+input:focus {
+    outline: 2px solid #BEF264 !important;
+}
+
+/* --- Dashboard Responsive --- */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 80px;
+    }
+
+    .sidebar-header .logo span,
+    .menu-item span,
+    .user-profile div:not(.user-avatar) {
+        display: none;
+    }
+
+    .menu-item {
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .sidebar-menu {
+        padding: 1rem 0;
+    }
+
+    .menu-item i {
+        margin-right: 0;
+    }
+
+    .main-content {
+        margin-left: 80px;
+    }
+
+    .top-bar {
+        padding: 1.5rem 2rem;
+    }
+
+    .content-wrapper {
+        padding: 0 2rem 2rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-header {
+        padding: 1rem;
+    }
+
+    .sidebar-header .logo span {
+        display: inline !important;
+    }
+
+    .sidebar-menu {
+        display: flex;
+        padding: 0.5rem;
+        flex: 1;
+        overflow-x: auto;
+        gap: 0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .sidebar-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-item {
+        margin-bottom: 0;
+        padding: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .user-profile {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .top-bar {
+        padding: 1rem;
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .top-bar h2 {
+        font-size: 1.25rem;
+    }
+
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .table-container {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    .modal-content {
+        max-width: 95vw !important;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .plan-card {
+        padding: 1.5rem;
+    }
+
+    .plan-roi {
+        font-size: 2.5rem;
+    }
+}

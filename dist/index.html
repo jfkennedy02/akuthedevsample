@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoInvest - Future of Finance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .hero-section {
+      padding: 6rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: var(--primary-color);
+      filter: blur(150px);
+      opacity: 0.1;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 6rem;
+    }
+
+    .feature-card {
+      padding: 2.5rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 32px;
+      text-align: left;
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-color);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(190, 242, 100, 0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 100px;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+  <link rel="stylesheet" crossorigin href="/assets/style-CetcpOaZ.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <i data-lucide="zap" style="fill: var(--primary-color);"></i>
+        Tonee<span>Invest</span>
+      </a>
+      <div class="nav-links">
+        <a href="#">Analysis</a>
+        <a href="#">Markets</a>
+        <a href="login.html">Sign In</a>
+        <a href="login.html" class="btn-primary" style="margin-left: 2rem; color: black; text-decoration: none;">Get
+          App</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main class="container">
+    <section class="hero-section">
+      <div class="hero-glow"></div>
+
+      <div class="stat-pill">
+        <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%;"></span>
+        Bitcoin is currently at $64,230
+      </div>
+
+      <h1 style="font-size: 4.5rem; line-height: 1.1; margin-bottom: 1.5rem;">
+        Uncover the <br>
+        <span style="color: var(--text-gray);">Future of</span> <span
+          style="color: var(--primary-color);">Crypto.</span>
+      </h1>
+
+      <p style="font-size: 1.25rem; color: var(--text-gray); max-width: 600px; margin: 0 auto 3rem;">
+        The ultimate platform for crypto management. Track, trade, and analyze your portfolio with professional
+        precision.
+      </p>
+
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <a href="login.html" class="btn-primary"
+          style="text-decoration: none; padding: 1rem 3rem; font-size: 1.1rem;">Start Trading</a>
+        <a href="#" class="btn-outline" style="text-decoration: none; padding: 1rem 3rem; font-size: 1.1rem;">View
+          Demo</a>
+      </div>
+
+      <!-- Features -->
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="shield-check"></i></div>
+          <h3>Secure Storage</h3>
+          <p style="color: var(--text-gray); margin-top: 1rem;">Bank-grade encryption for all your digital assets and
+            transactions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="zap"></i></div>
+          <h3>Instant Transfers</h3>
+          <p style="color: var(--text-gray); margin-top: 1rem;">Send and receive funds globally in seconds with zero
+            latency.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i data-lucide="bar-chart-2"></i></div>
+          <h3>Real-time Analytics</h3>
+          <p style="color: var(--text-gray); margin-top: 1rem;">Professional charting tools and portfolio insights.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
